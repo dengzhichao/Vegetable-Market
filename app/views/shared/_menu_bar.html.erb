@@ -1,0 +1,32 @@
+<% if !current_user %> 
+  <% menu_items = [
+    { :link => merchandises_path, :name => ‘List of merchandises' }, 
+    { :link => new_user_registration_path, :name => 'Sign Up' },
+    { :link => new_user_session_path, :name => 'Sign In' },
+    { :link => "", :name => 'About Us', :disabled => true }
+  ] -%>
+<% else %>
+  <% if current_user.role_id == 3 %>
+    <% menu_items = [
+      { :link => merchandises_path, :name => 'List of merchandises' }, 
+      { :link => "", :name => 'Shopping Cart' },
+      { :link => "", :name => 'Orders' },
+      { :link => "", :name => 'About Us', :disabled => true },
+      { :link => destroy_user_session_path, :name => 'Sign Out', :method => "delete" }
+    ] -%>
+  <% elsif current_user.role_id == 2 %>
+    <% menu_items = [
+      { :link => merchandises_path, :name => 'List of merchandises' },
+      { :link => new_merchandise_path, :name => 'New Merchandise' },
+      { :link => "", :name => 'Customer Management' },
+      { :link => "", :name => 'Order Management' },
+      { :link => destroy_user_session_path, :name => 'Sign Out', :method => "delete" } 
+      ] -%>
+  <% else %>
+    <% menu_items = [
+      { :link => users_path, :name => 'List Users' },
+      { :link => "", :name => 'Master Tables Maintenance', :disabled => true },
+      { :link => destroy_user_session_path, :name => 'Sign Out', :method => "delete" } 
+      ] -%>
+  <% end %>
+<% end %>

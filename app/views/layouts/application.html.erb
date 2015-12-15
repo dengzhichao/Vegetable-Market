@@ -6,10 +6,28 @@
   <%= javascript_include_tag "application", "data-turbolinks-track" => true %>
   <%= csrf_meta_tags %>
 </head>
-<body>
-  <p class="notice"><%= notice %></p>
-  <p class="alert"><%= alert %></p>
-<%= yield %>
 
+<body>
+  <div id = "container">
+    <div id = "header">
+      <%if I18n.locale == :ja %>
+        <%= image_tag 'title_ja.gif', :size => '600x133', :alt => 'Koganei Vegetable Vil.'%>
+	  <%else%>
+	    <%= image_tag 'title_en.gif', :size => '600x133', :alt => 'Koganei Vegetable Vil.'%>
+	  <%end%>
+	  <%= render :partial => 'shared/menu_bar'%>
+	</div>
+  	<div id = 'left'>
+  	  <p class="notice"><%= notice %></p>
+      <p class="alert"><%= alert %></p>
+      <%= yield %>
+  	</div>  
+  	<div id = 'right'>
+  	  <%=render :partial => 'shared/right_bar'%>
+  	</div>
+  	<div id = 'footer'>
+  	  <%=render :partial => 'shared/footer'%>
+  	</div>
+  </div>
 </body>
 </html>
