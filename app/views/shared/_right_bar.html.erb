@@ -1,10 +1,14 @@
-This page is a sample<br/>
-Recommendations<br/>
-<br/>
-Today's Fresh<br/>
-Cucumber<br/>
-Egg Plant<br/>
-Tomato<br/>
-<br/>
-Cheristmas Special<br/>
-
+<h3>Koganei Vegetable Market</h3> 
+<% if current_user %>
+  <%= link_to "Sign Out",
+    destroy_user_session_path, :method=>”delete” %><br />
+<% else %>
+  <%= link_to "Sign In", new_user_session_path %><br /> 
+  <%= link_to "Sign Up", new_user_registration_path %><br />
+<% end %> 
+この下􏰂、ROLEによって分岐すべき・・・<br />
+<%= link_to "See vegetables", merchandises_path %><br /> 
+Shopping Cart<br />
+Purchase<br />
+Trace<br />
+About Us<br />

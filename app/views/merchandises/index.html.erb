@@ -7,23 +7,49 @@
       <th>Name</th>
       <th>Price</th>
       <th>Max order</th>
-      <th></th>
-      <th></th>
-      <th></th>
+      <% if current_user && current_user.role_id == 2 %>
+        <th></th>
+        <th></th>
+        <th></th>
+      <%end%>
     </tr>
   </thead>
 
   <tbody>
     <% @merchandises.each do |merchandise| %>
       <tr>
-        <td><%= merchandise.category %></td>
-        <td><%= merchandise.name %></td>
-        <td><%= merchandise.price %></td>
-        <td><%= merchandise.max_order %></td>
-        <td><%= link_to 'Show', merchandise %></td>
-        <td><%= link_to 'Edit', edit_merchandise_path(merchandise) %></td>
-        <td><%= link_to 'Destroy', merchandise, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-      </tr>
+        <td><%= merchandise.category %></td> 
+        <td><%= merchandise.name %></td> 
+        <td><%= merchandise.price %></td> 
+        <td><%= merchandise.max_order %></td> 
+        <td>
+          <% if merchandise.photo %>
+            <p>
+              <% if merchandise.file_type =~ /^image¥/.*?(png|jpeg|gif)$/ %>
+                <%= image_tag url_for({:action => 'photo', :id=> merchandise.id,
+                     :filename => merchandise.file_name}), :size=>"50x50",
+                  :alt => merchandise.file_name %>
+              <% end %>
+            <br />
+            </p>
+          <% end %>
+        </td>
+        <% if current_user %>
+          <% if current_user.role_id == 2 %>
+            <td><%= link_to 'Show', merchandise %></td>
+            <td><%= link_to 'Edit', edit_merchandise_path(merchandise) %></td>
+            <td><%= link_to 'Destroy', merchandise, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+          <% elsif current_user.role_id == 3 %> 
+            <td>
+              <%= form_tag "/carts/create/"+merchandise.id.to_s, :method => 'POST' do %> 
+                Amount:
+                <%= tag :input, { :type => 'text', :name => 'how_many', :size=>"6" } %>
+                <%= submit_tag 'Add to Cart', :name =>'Purchase' %>
+              <% end %>
+            </td>
+         <% end %> 
+       <% end %>
+     </tr>
     <% end %>
   </tbody>
 </table>

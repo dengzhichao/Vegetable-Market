@@ -34,29 +34,62 @@ class MerchandisesController < ApplicationController
   # POST /merchandises
   # POST /merchandises.json
   def create
-    @merchandise = Merchandise.new(merchandise_params)
-
-    respond_to do |format|
-      if @merchandise.save
-        format.html { redirect_to @merchandise, notice: 'Merchandise was successfully created.' }
-        format.json { render action: 'show', status: :created, location: @merchandise }
+    if params[:merchandise][:photo]
+      @file = params[:merchandise][:photo]
+      @stat = @file.tempfile.stat
+      @merchandise = Merchandise.new(
+        :category => params[:merchandise][:category],
+        :name => params[:merchandise][:name],
+        :price => params[:merchandise][:price],
+        :max_order => params[:merchandise][:max_order],
+        :file_name => @file.original_filename,
+        :file_type => @file.content_type,
+        :photo => @file.read
+        )
+        respond_to do |format|
+          if @merchandise.save
+            format.html { redirect_to @merchandise, notice: 'Merchandise was successfully created.' }
+            format.json { render action: 'show', status: :created, location: @merchandise }
+          else
+            format.html { render action: 'new' }
+            format.json { render json: @merchandise.errors, status: :unprocessable_entity }
+          end
+        end
       else
-        format.html { render action: 'new' }
-        format.json { render json: @merchandise.errors, status: :unprocessable_entity }
-      end
-    end
+        respond_to do |format|
+          format.html{render action: 'new', notice: 'Photo is not attached.'}
+          format.json{render json: @merchandise.errors, status: :unprocessable_entity}
+        end
+     end
   end
 
   # PATCH/PUT /merchandises/1
   # PATCH/PUT /merchandises/1.json
   def update
-    respond_to do |format|
-      if @merchandise.update(merchandise_params)
-        format.html { redirect_to @merchandise, notice: 'Merchandise was successfully updated.' }
-        format.json { head :no_content }
-      else
-        format.html { render action: 'edit' }
-        format.json { render json: @merchandise.errors, status: :unprocessable_entity }
+    if params[:merchandise][:photo]
+      @file = params[:merchandise][:photo] 
+      @stat = @file.tempfile.stat
+      respond_to do |format|
+        if @merchandise.update_attributes(
+          :category => params[:merchandise][:category], 
+          :name => params[:merchandise][:name],
+          :price => params[:merchandise][:price], 
+          :max_order => params[:merchandise][:max_order], 
+          :file_name => @file.original_filename,
+          :file_type => @file.content_type,
+          :photo => @file.read
+         )
+          format.html { redirect_to @merchandise, notice: 'Merchandise was successfully updated.' } 
+          format.json { head :no_content }
+         else
+          format.html { render action: 'edit' }
+          format.json { render json: @merchandise.errors, status: :unprocessable_entity }
+         end 
+      end
+    else
+      respond_to do |format|
+        format.html { render action: 'edit', notice: 'Photo is not attached.' }
+        format.json { render json: @merchandise.errors, status: :unprocessable_entity } end
       end
     end
   end
@@ -70,6 +103,13 @@ class MerchandisesController < ApplicationController
       format.json { head :no_content }
     end
   end
+  
+  def photo
+    @merchandise = Merchandise.find(params[:id])
+    send_data @merchandise.photo,
+        :filename =>
+    @merchandise.file_name, :type => @merchandise.file_type
+  end
 
   private
     # Use callbacks to share common setup or constraints between actions.
@@ -79,6 +119,6 @@ class MerchandisesController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def merchandise_params
-      params.require(:merchandise).permit(:category, :name, :price, :max_order)
+      params.require(:merchandise).permit(:category, :name, :price, :max_order, :photo)
     end
 end

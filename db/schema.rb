@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151215075056) do
+ActiveRecord::Schema.define(version: 20151215105146) do
 
   create_table "merchandises", force: true do |t|
     t.string   "category"
@@ -20,6 +20,9 @@ ActiveRecord::Schema.define(version: 20151215075056) do
     t.integer  "max_order"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.binary   "photo"
+    t.string   "file_name"
+    t.string   "file_type"
   end
 
   create_table "roles", force: true do |t|
