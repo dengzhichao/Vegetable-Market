@@ -1,4 +1,6 @@
 VegetableMarket::Application.routes.draw do
+  resources :roles
+
   get "welcome/index"
   resources :merchandises
 
