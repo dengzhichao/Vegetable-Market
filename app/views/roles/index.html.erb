@@ -3,6 +3,7 @@
 <table>
   <thead>
     <tr>
+      <td>id</td>
       <th>Ename</th>
       <th>Jname</th>
       <th></th>
@@ -14,6 +15,7 @@
   <tbody>
     <% @roles.each do |role| %>
       <tr>
+      	<td><%= role.id %></td>
         <td><%= role.ename %></td>
         <td><%= role.jname %></td>
         <td><%= link_to 'Show', role %></td>
