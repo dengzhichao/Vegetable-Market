@@ -7,6 +7,7 @@
       <th>Name</th>
       <th>Price</th>
       <th>Max order</th>
+      <th>Photo</th>
       <% if current_user && current_user.role_id == 2 %>
         <th></th>
         <th></th>
@@ -25,7 +26,7 @@
         <td>
           <% if merchandise.photo %>
             <p>
-              <% if merchandise.file_type =~ /^image¥/.*?(png|jpeg|gif)$/ %>
+              <% if merchandise.file_type =~ /^image\/.*?(png|jpeg|gif)$/ %>
                 <%= image_tag url_for({:action => 'photo', :id=> merchandise.id,
                      :filename => merchandise.file_name}), :size=>"50x50",
                   :alt => merchandise.file_name %>
@@ -54,6 +55,6 @@
   </tbody>
 </table>
 
-<br>
+<%= render 'shared/cart_list'%>
 
 <%= link_to 'New Merchandise', new_merchandise_path %>

@@ -1,0 +1,38 @@
+<% if @carts and @carts.length > 0 %> 
+  <hr />
+  <% sum = 0 %>
+  <h2>Your Shopping Carts </h2> 
+  <table>
+    <% @carts.each do |cart| %> 
+      <tr>
+        <td rowspan="2">
+          <% if cart.merchandise.photo %>
+          <p>
+            <% if cart.merchandise.file_type =~ /^image\/.*?(png|jpeg|gif)$/ %>
+              <%= image_tag url_for({:action => 'photo', :id=> cart.merchandise.id, 
+              	:controller => 'merchandises',
+                :filename => cart.merchandise.file_name}), :size=>"50x50",
+               :alt => cart.merchandise.file_name %> 
+            <% end %>
+           <br /> 
+          </p>
+     <% end %>
+    </td>
+    <td colspan="3"><%= cart.merchandise.name %></td> 
+  </tr>
+  <tr>
+    <td>@<%= cart.merchandise.price %></td>
+    <td>x<%= cart.number_of_items %> units. </td>
+    <td>
+    	<% if cart.number_of_items %>
+    	   Subtotal: <%= cart.merchandise.price*cart.number_of_items %> Yen
+           <% sum = sum + cart.merchandise.price*cart.number_of_items %>
+        <%end%>
+    </td>    
+  </tr> 
+ <% end %>
+</table>
+Total: <%= sum %> Yen.<br /> 
+<% end %>
+
+<br/>

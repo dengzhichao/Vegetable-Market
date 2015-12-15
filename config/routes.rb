@@ -3,11 +3,15 @@ VegetableMarket::Application.routes.draw do
   resources :users
 
   resources :roles
-
+  
+  get 'carts/list'
+  post 'carts/create/:id' => 'carts#create'
+  
   get 'welcome/index'
+  get 'merchandises', :to => 'merchandises#index', :as => :user_root
   get 'welcome/staff_entry', :to => 'welcome#staff_entry', :as => :staff_entry
   
-  get 'merchandises', :to => 'merchandises#index', :as => :user_root
+  get 'merchandises/photo' => 'merchandises#photo'
   resources :merchandises
 
   # The priority is based upon order of creation: first created -> highest priority.

@@ -15,6 +15,9 @@ class MerchandisesController < ApplicationController
       end
     end
     @merchandises = Merchandise.all
+    if current_user
+      @carts = Cart.where( user_id: current_user.id ).all
+    end
   end
 
   # GET /merchandises/1
@@ -89,7 +92,7 @@ class MerchandisesController < ApplicationController
     else
       respond_to do |format|
         format.html { render action: 'edit', notice: 'Photo is not attached.' }
-        format.json { render json: @merchandise.errors, status: :unprocessable_entity } end
+        format.json { render json: @merchandise.errors, status: :unprocessable_entity }
       end
     end
   end
