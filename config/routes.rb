@@ -4,7 +4,8 @@ VegetableMarket::Application.routes.draw do
 
   resources :roles
 
-  get "welcome/index"
+  get 'welcome/index'
+  get 'welcome/staff_entry', :to => 'welcome#staff_entry', :as => :staff_entry
   
   get 'merchandises', :to => 'merchandises#index', :as => :user_root
   resources :merchandises

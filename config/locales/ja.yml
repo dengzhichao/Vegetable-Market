@@ -1,10 +1,19 @@
 ja:
-  memos_title: 私のメモ帳
-  show: 表示
-  edit: 編集
-  destroy: 削除
-  list_memo: メモ一覧
-  new_memo: 新規作成
+  welcome_top: 小金井野菜むらへようこそ!
+  staff_entrance: スタッフ専用入り口 
+  click_here: ここをクリック! 
+  list_merchandises: 商品一覧 
+  sign_up: 自己登録 
+  sign_in: ログイン
+  sign_out: ログアウト
+  about_us: 当サイトについて 
+  shopping_cart: ショッピングカート 
+  orders_list: 注文一覧 
+  new_merchandises: 新規商品登録 
+  customer_service: 顧客サービス 
+  order_management: 注文管理 
+  list_users: ユーザ一覧 
+  master_table_maintenance: マスター管理
   date:
     abbr_day_names:
     - 日

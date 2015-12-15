@@ -1,10 +1,19 @@
 en:
-  memos_title: MyMemos
-  show: show
-  edit: Edit
-  destroy: Destroy
-  list_memo: Listing memos
-  new_memo: New Memo
+  welcome_top: Welcome to Vegetable Market!
+  staff_entrance: Staff Entrance
+  click_here: Click Here
+  list_merchandises: List of Merchandises 
+  sign_up: Sign Up 
+  sign_in: Sign in
+  sign_out: Sign out
+  about_us: About Us! 
+  shopping_cart: Shopping Cart 
+  orders_list: List of Orders
+  new_merchandises: New Merchandises 
+  customer_service: Customer Service
+  order_management: Order Management
+  list_users: List of Users
+  master_table_maintenance: Master Table Maintainance
   date:
     abbr_day_names:
     - Sun

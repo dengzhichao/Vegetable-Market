@@ -4,6 +4,16 @@ class MerchandisesController < ApplicationController
   # GET /merchandises
   # GET /merchandises.json
   def index
+    if current_user
+      if !current_user.role_id
+        current_user.role_id = 3
+        current_user.handle = "No Name"
+        current_user.save
+        redirect_to :controller => "users", action => "edit",
+              :id => current_user.id
+        return
+      end
+    end
     @merchandises = Merchandise.all
   end
 

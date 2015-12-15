@@ -1,6 +1,6 @@
 <% if !current_user %> 
   <% menu_items = [
-    { :link => merchandises_path, :name => ‘List of merchandises' }, 
+    { :link => merchandises_path, :name => 'List of merchandises'}, 
     { :link => new_user_registration_path, :name => 'Sign Up' },
     { :link => new_user_session_path, :name => 'Sign In' },
     { :link => "", :name => 'About Us', :disabled => true }
@@ -30,3 +30,10 @@
       ] -%>
   <% end %>
 <% end %>
+
+<div id = "menu_bar">
+  <% menu_items.each_with_index do |item, index| -%>
+    <% if index > 0 %> &nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;<% end -%>
+    <%= menu_link_to item -%> 
+  <% end -%>
+</div>

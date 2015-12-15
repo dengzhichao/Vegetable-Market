@@ -12,4 +12,18 @@ module ApplicationHelper
       link_to(item[:name], item[:link]) 
     end
   end
+  
+  def allow_to_admin_user_only
+    if !current_user || current_user.role_id != 1
+      redirect_to :user_root
+      return 
+    end
+  end
+
+  def allow_to_shop_clerks_only
+    if !current_user || current_user.role_id != 2
+      redirect_to :user_root
+      return 
+    end
+  end
 end
