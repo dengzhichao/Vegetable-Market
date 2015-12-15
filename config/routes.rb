@@ -5,6 +5,8 @@ VegetableMarket::Application.routes.draw do
   resources :roles
 
   get "welcome/index"
+  
+  get 'merchandises', :to => 'merchandises#index', :as => :user_root
   resources :merchandises
 
   # The priority is based upon order of creation: first created -> highest priority.
