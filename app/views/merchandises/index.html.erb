@@ -1,0 +1,33 @@
+<h1>Listing merchandises</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Category</th>
+      <th>Name</th>
+      <th>Price</th>
+      <th>Max order</th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @merchandises.each do |merchandise| %>
+      <tr>
+        <td><%= merchandise.category %></td>
+        <td><%= merchandise.name %></td>
+        <td><%= merchandise.price %></td>
+        <td><%= merchandise.max_order %></td>
+        <td><%= link_to 'Show', merchandise %></td>
+        <td><%= link_to 'Edit', edit_merchandise_path(merchandise) %></td>
+        <td><%= link_to 'Destroy', merchandise, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Merchandise', new_merchandise_path %>

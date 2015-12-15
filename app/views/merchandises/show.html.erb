@@ -1,0 +1,24 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Category:</strong>
+  <%= @merchandise.category %>
+</p>
+
+<p>
+  <strong>Name:</strong>
+  <%= @merchandise.name %>
+</p>
+
+<p>
+  <strong>Price:</strong>
+  <%= @merchandise.price %>
+</p>
+
+<p>
+  <strong>Max order:</strong>
+  <%= @merchandise.max_order %>
+</p>
+
+<%= link_to 'Edit', edit_merchandise_path(@merchandise) %> |
+<%= link_to 'Back', merchandises_path %>

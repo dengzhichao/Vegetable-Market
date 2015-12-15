@@ -1,0 +1,13 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  category: MyString
+  name: MyString
+  price: 1
+  max_order: 1
+
+two:
+  category: MyString
+  name: MyString
+  price: 1
+  max_order: 1
