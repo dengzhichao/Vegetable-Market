@@ -10,7 +10,11 @@
       </ul>
     </div>
   <% end %>
-
+ 
+  <div class = "field">
+  	<%= f.label :user %><br/>
+  	<%= @customer.user.email%>
+  </div>	
   <div class="field">
     <%= f.label :user_id %><br>
     <%= f.number_field :user_id %>

@@ -50,6 +50,11 @@
             </td>
          <% end %> 
        <% end %>
+       <% if current_user && current_user.role_id = =3 %>
+          <%= form_tag "/customers/new", :method => 'GET' do%>
+             <%=submit_tag 'Go Cashier', :name => 'Payment'%>
+          <%end%>   
+       <%end%>
      </tr>
     <% end %>
   </tbody>

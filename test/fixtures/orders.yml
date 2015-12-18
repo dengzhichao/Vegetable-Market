@@ -1,0 +1,13 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  customer_id: 1
+  order_status_id: 1
+  shipped_at: 2015-12-17 19:17:48
+  traceable_number: MyString
+
+two:
+  customer_id: 1
+  order_status_id: 1
+  shipped_at: 2015-12-17 19:17:48
+  traceable_number: MyString

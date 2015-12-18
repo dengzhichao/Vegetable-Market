@@ -13,8 +13,17 @@ class CustomersController < ApplicationController
   end
 
   def new
-    @customer = Customer.new
-    respond_with(@customer)
+    @customer = Customer.find_by_user_id( current_user.id ) 
+    if @customer
+      respond_with(@customer) 
+    else
+      @customer = Customer.new 
+      @customer.user_id = current_user.id 
+      respond_to do |format|
+        format.html # new.html.erb
+        format.json { render json: @customer } 
+      end
+    end
   end
 
   def edit
@@ -22,6 +31,7 @@ class CustomersController < ApplicationController
 
   def create
     @customer = Customer.new(customer_params)
+    @customer.user_id = current_user.id
     @customer.save
     respond_with(@customer)
   end

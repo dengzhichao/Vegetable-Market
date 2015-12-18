@@ -1,0 +1,24 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Customer:</strong>
+  <%= @order.customer_id %>
+</p>
+
+<p>
+  <strong>Order status:</strong>
+  <%= @order.order_status_id %>
+</p>
+
+<p>
+  <strong>Shipped at:</strong>
+  <%= @order.shipped_at %>
+</p>
+
+<p>
+  <strong>Traceable number:</strong>
+  <%= @order.traceable_number %>
+</p>
+
+<%= link_to 'Edit', edit_order_path(@order) %> |
+<%= link_to 'Back', orders_path %>

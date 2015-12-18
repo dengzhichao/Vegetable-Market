@@ -1,4 +1,10 @@
 VegetableMarket::Application.routes.draw do
+  resources :order_statuses
+
+  resources :order_items
+
+  resources :orders
+
   resources :customers
 
   devise_for :users
