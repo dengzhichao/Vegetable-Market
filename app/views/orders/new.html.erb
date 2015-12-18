@@ -1,5 +1,10 @@
-<h1>New order</h1>
+<h1>Confirm Payments of the order</h1>
 
 <%= render 'form' %>
 
-<%= link_to 'Back', orders_path %>
+<%= form_tag "/orders/payment/", :method => 'GET' do %>
+  <%= tag :input, { :type => 'hidden', :name => 'order_id', :value => @order.id } %> 
+  <%= submit_tag 'Confirm Payment', :name =>'Payment' %>
+<% end %>
+
+<%= link_to 'Back', merchandises_path%>

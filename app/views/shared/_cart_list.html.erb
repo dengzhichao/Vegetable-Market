@@ -34,5 +34,10 @@
 </table>
 Total: <%= sum %> Yen.<br /> 
 <% end %>
-
 <br/>
+
+<% if current_user && current_user.role_id == 3 %>
+  <%= form_tag "/customers/new/", :method => 'GET' do %>
+    <%= submit_tag (t :go_cashier), :name =>'Payment' %> 
+  <% end %>
+<% end %>
