@@ -1,33 +1,32 @@
-<h1>Listing orders</h1>
+<h1>Your Orders Status</h1>
 
-<table>
+<table border="1"> 
   <thead>
     <tr>
-      <th>Customer</th>
-      <th>Order status</th>
-      <th>Shipped at</th>
+      <th>Order Date</th> 
+      <th>Order status</th> 
+      <th>Shipped at</th> 
       <th>Traceable number</th>
       <th></th>
-      <th></th>
-      <th></th>
-    </tr>
+    </tr> 
   </thead>
 
-  <tbody>
-    <% @orders.each do |order| %>
-      <tr>
-        <td><%= order.customer_id %></td>
-        <td><%= order.order_status_id %></td>
-        <td><%= order.shipped_at %></td>
-        <td><%= order.traceable_number %></td>
-        <td><%= link_to 'Show', order %></td>
-        <td><%= link_to 'Edit', edit_order_path(order) %></td>
-        <td><%= link_to 'Destroy', order, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-      </tr>
-    <% end %>
-  </tbody>
+<tbody>
+  <% @orders.each do |order| %>
+    <tr>
+      <td><%= order.created_at %></td> 
+      <td><%= order.order_status.c %></td> 
+      <% if order.order_status.id <=2 %>
+        <td></td><td></td> 
+      <% else %>
+        <td><%= order.shipped_at.strftimme("%Y/%m/%d %H:%M") %></td>
+        <td><%= order.traceable_number %></td> 
+      <% end %>
+      <td><%= link_to 'Show', order %></td>
+    </tr>
+  <% end %>
+</tbody> 
 </table>
-
 <br>
 
 <%= link_to 'New Order', new_order_path %>

@@ -14,16 +14,18 @@ module ApplicationHelper
   end
   
   def allow_to_admin_user_only
-    if !current_user || current_user.role_id != 1
+    if !current_user || current_user.role_id != 3
       redirect_to :user_root
-      return 
+      return true 
     end
+    return false
   end
 
   def allow_to_shop_clerks_only
     if !current_user || current_user.role_id != 2
       redirect_to :user_root
-      return 
+      return true
     end
+    return false
   end
 end

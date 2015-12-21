@@ -1,0 +1,38 @@
+<h1>Listing orders</h1>
+<table border="1">
+  <tr>
+    <th>Customer</th> 
+    <th>Ordered Date</th> 
+    <th>Order status</th> 
+    <th>Shipped at</th> 
+    <th>Tracable number</th> 
+    <th></th>
+    <th></th>
+    <th></th> </tr>
+
+<% @orders.each do |order| %> 
+  <tr>
+    <td><%= order.customer.name %></td> 
+    <td><%= order.created_at %></td> 
+    <td><%= order.order_status.s %></td> 
+    <% if order.order_status.id <=2 %>
+      <td></td><td></td> 
+    <% else %>
+      <td><%= order.shipped_at %></td>
+      <td><%= order.traceable_number %></td> 
+    <% end %>
+    <td><%= link_to 'Show', order %></td> 
+    <td>
+      <% if order.order_status.id == 2 %>
+        <%= link_to 'Ship', edit_order_path(order) %>
+      <% elsif order.order_status.id == 3 %>
+        <%= link_to 'Arrived', edit_order_path(order) %> 
+      <% else %>
+        <%= link_to 'Edit', edit_order_path(order) %> 
+      <% end %>
+    </td>
+    <td><%= link_to 'Destroy', order, method: :delete, data: { confirm: 'Are you sure?' } %></td> 
+  </tr>
+<% end %> 
+</table> 
+<br />

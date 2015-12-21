@@ -9,8 +9,8 @@
   <% if current_user.role_id == 3 %>
     <% menu_items = [
       { :link => merchandises_path, :name => 'List of merchandises' }, 
-      { :link => "", :name => 'Shopping Cart' },
-      { :link => "", :name => 'Orders' },
+      { :link => carts_list_path, :name => 'Shopping Cart' },
+      { :link => orders_path, :name => 'Orders' },
       { :link => "", :name => 'About Us', :disabled => true },
       { :link => destroy_user_session_path, :name => 'Sign Out', :method => "delete" }
     ] -%>
@@ -18,14 +18,14 @@
     <% menu_items = [
       { :link => merchandises_path, :name => 'List of merchandises' },
       { :link => new_merchandise_path, :name => 'New Merchandise' },
-      { :link => "", :name => 'Customer Management' },
-      { :link => "", :name => 'Order Management' },
+      { :link => customers_path, :name => 'Customer Management' },
+      { :link => orders_path, :name => 'Order Management' },
       { :link => destroy_user_session_path, :name => 'Sign Out', :method => "delete" } 
       ] -%>
   <% else %>
     <% menu_items = [
       { :link => users_path, :name => 'List Users' },
-      { :link => "", :name => 'Master Tables Maintenance', :disabled => true },
+      { :link => welcome_master_menu_path, :name => 'Master Tables Maintenance', :disabled => true },
       { :link => destroy_user_session_path, :name => 'Sign Out', :method => "delete" } 
       ] -%>
   <% end %>

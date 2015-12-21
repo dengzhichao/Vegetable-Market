@@ -1,13 +1,6 @@
-<h1>Editing order</h1>
+<h1>Ship the order</h1>
 
 <%= render 'form' %>
-
-<% if current_user.role.id == 3 && @order.order_status.s == 'Listed' %> 
-  <%= form_tag "/orders/payment/", :method => 'GET' do %>
-    <%= tag :input, { :type => 'hidden', :name => 'order_id', :value => @order.id } %>
-    <%= submit_tag 'Confirm Payment', :name =>'Payment' %>
-  <% end %>
-<% end %>
 
 <%= link_to 'Show', @order %>
 <%= link_to 'Back', orders_path %>

@@ -1,4 +1,7 @@
 class OrderStatusesController < ApplicationController
+  before_filter :authenticate_user!
+  before_filter :allow_to_admin_user_only
+  
   before_action :set_order_status, only: [:show, :edit, :update, :destroy]
 
   respond_to :html, :xml, :json

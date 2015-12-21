@@ -1,54 +1,134 @@
-
 <%= form_for(@order) do |f| %> 
   <% if @order.errors.any? %>
     <div id="error_explanation">
       <h2><%= pluralize(@order.errors.count, "error") %> prohibited this order from being saved:</h2>
-      
-      <ul>
-      <% @order.errors.full_messages.each do |message| %>
-        <li><%= message %></li> 
-      <% end %>
-      </ul>
-    </div> 
-  <% end %>
-  
-  <div class="field">
-    <%= f.label :customer_id %><br>
-    <%= @order.customer.name %><br>
-    <%= @order.customer.zipcode %>, <%= @order.customer.city %>
-  </div>
-  <div class="field">
-    <%= f.label :order_status %>:
-    <%= @order.order_status.s %>(<%= @order.order_status.c %>) <br /> 
-  </div>
-  <% if @order.order_status.s == 'Paid' && current_user.role_id == 2 %>
-    <div class="field">
-      <%= f.label :shipped_at %><br> 
-      <%= f.datetime_select :shipped_at %>
-    </div>
-    <div class="field">
-      <%= f.label :traceable_number %><br>
-      <%= f.text_field :traceable_number %> 
-    </div>
-  <% end %>
 
-  <% if @order.order_status.s == 'Shipped' || @order.order_status.s == 'Completed!' %> 
-    <div class="field">
-      <%= f.label :shipped_at %><br>
-      <%= @order.shipped_at.strftime('%Y/%m/%d %H:%M') %><br /> 
-    </div>
-    <div class="field">
-      <%= f.label :traceable_number %>:
-      <%= @order.traceable_number %><br /> 
+      <ul>
+      <% @order.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li> <% end %>
+      </ul>
     </div>
   <% end %>
-<h3> List of Items </h3>
-<% @order.order_items.each do |item| %>
-  [<%= item.merchandise.name %>]<br />
-  <%= item.number_of_items %>Pcs @ <%= item.price %><br />
+<table border="1">
+  <thead> 
+    <th>
+      <div class="field">
+        <%= f.label :customer %>:
+      </div> 
+    </th> 
+    <th>
+      <div class="field">
+        <%= f.label :ordered_date %>:
+      </div> 
+    </th> 
+    <th>
+      <div class="field">
+      <%= f.label :order_status %>:
+    </div> 
+  </th> 
+</thead>
+
+<tr> 
+  <td>
+    <div class="field">
+      <%= @order.customer.name %><br />
+      <%= @order.customer.zipocode %>:<%= @order.customer.city %>
+    </div> 
+  </td> 
+  <td>
+    <div class="field">
+      <%= @order.created_at.strftime("%Y/%m/%d %H:%M") %><br />
+    </div> 
+  </td> 
+  <td>
+    <div class="field">
+      <%= @order.order_status.s %>, <%= @order.order_status.c %><br />
+    </div> 
+  </td>
+</tr> 
+</table>
+
+<table border = "1" > 
+  <thead>
+    <% if @order.order_status.id == 2 && current_user.role.id == 2 %> 
+      <th>
+        <div class="field">
+          <%= f.label :shipped_at %><br />
+        </div> 
+      </th> 
+      <th>
+        <div class="field">
+          <%= f.label :traceable_number %><br />
+        </div> 
+      </th>
+   <% end %>
+   <% if @order.order_status.id >= 3 %> 
+   <th>
+     <div class="field">
+       <%= f.label :shipped_at %>:
+     </div>
+   </th>
+   <th>
+     <div class="field">
+       <%= f.label :traceable_number %>:
+     </div> 
+   </th>
+   <% end %>
+ </thead>
+   <% if @order.order_status.id == 2 && current_user.role.id == 2 %>
+     <tr> 
+       <td>
+         <div class="field">
+           <%= f.datetime_select :shipped_at %> 
+         </div>
+       </td> 
+       <td>
+         <div class="field">
+           <%= f.text_field :traceable_number %> 
+         </div>
+       </td> 
+     </tr>
+  <% end %>
+  <% if @order.order_status.id >= 3 %>
+    <tr> 
+      <td>
+        <div class="field">
+          <%= @order.shipped_at.strftime("%Y/%m/%d %H:%M") %><br />
+        </div> 
+      </td> 
+      <td>
+        <div class="field">
+          <%= @order.traceable_number %><br />
+        </div> 
+      </td>
+   </tr>
+ <% end %>
+ </table>
+
+<h3> List of Items </h3> 
+<table border = "1">
+  <% @order.order_items.each do |item| %> 
+    <tr>
+      <td>
+        [<%= item.merchandise.name %>]<br />
+      </td> 
+      <td>
+        <%= item.number_of_items %>Pcs<br /> </td>
+      </tr>
+ <% end %> 
+</table>
+<br />
+
+<% if current_user.role.id == 2 && @order.order_status.id == 2 %> 
+  <div class="actions">
+    <%= f.submit "Ship" %> 
+  </div>
+  <% elsif current_user.role.id == 2 && @order.order_status.id == 3 %> 
+    <div class="actions">
+      <%= f.submit "Arrived" %> 
+    </div>
+  <% else %>
+    <% link_to "back", orders_path %>
+  <% end %>   
 <% end %>
-<% if @order.order_status.s == 'Paid' && current_user.role_id == 2 %>
-  <div class="actions"> 
-  	<%= f.submit %>
-  </div> <% end %>
-<% end %>
+ 

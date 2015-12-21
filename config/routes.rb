@@ -18,6 +18,7 @@ VegetableMarket::Application.routes.draw do
   
   get 'welcome/index'
   get 'merchandises', :to => 'merchandises#index', :as => :user_root
+  get 'welcome/master_menu' => 'welcome#master_menu'
   get 'welcome/staff_entry', :to => 'welcome#staff_entry', :as => :staff_entry
   
   get 'merchandises/photo' => 'merchandises#photo'

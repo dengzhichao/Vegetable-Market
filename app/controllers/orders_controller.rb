@@ -1,11 +1,19 @@
 class OrdersController < ApplicationController
   before_action :set_order, only: [:show, :edit, :update, :destroy]
-
+  before_filter :authenticate_user!
+  
   respond_to :html
 
   def index
-    @orders = Order.all
-    respond_with(@orders)
+    if current_user.role_id == 2
+      @orders = Order.all
+      render "index2"
+      return 
+    elsif current_user.role_id == 3
+      @orders = Order.where(customer_id: current_user.customer.id)
+    else
+      redirect_to user_root_path
+    end
   end
 
   def show
@@ -49,13 +57,39 @@ class OrdersController < ApplicationController
   end
 
   def update
-    @order.update(order_params)
-    respond_with(@order)
+    if(@order.order_status_id == 2)
+      @order.update_attribute( :order_status_id, 3)
+    elsif(@order.order_status_id == 3)
+      @order.update_attribute( :order_status_id, 4)
+      redirect_to @order
+      return
+    end
+    
+    respond_to do |format|
+      if @order.update( order_params)
+        format.html { redirect_to @order. notice:'Order was successfully updated.'}
+        format.json { head :no_content}
+      else
+        format.html { render action: 'edit' }
+        format.json { render json: @order.errors, status: :unprocessable_entity }
+      end
+    end
   end
 
   def destroy
     @order.destroy
     respond_with(@order)
+  end
+  
+  def payments
+    @order = Order.find_by_id(params[:order_id])
+    @order.order_status_id = OrderStatus.find_by_s('Paid').id 
+    @order.save
+    
+    respond_to do |format|
+     format.html # payment.html.erb 
+     format.json { render json: @order }
+    end
   end
 
   private
