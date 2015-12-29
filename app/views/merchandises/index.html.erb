@@ -47,17 +47,16 @@
                 <%= tag :input, { :type => 'text', :name => 'how_many', :size=>"6" } %>
                 <%= submit_tag 'Add to Cart', :name =>'Purchase' %>
               <% end %>
-            </td> 
-         <% end %> 
-       <% end %>
+            </td>
+          <% end %> 
+        <% end %>
      </tr>
     <% end %>
   </tbody>
 </table>
 
-<%= render 'shared/cart_list'%>
-
 <% if current_user && current_user.role_id == 3 %> 
+  <%= render 'shared/cart_list'%> 
   <%= form_tag "/customers/new", :method => 'GET' do%>  
     <%=submit_tag ('Go Cashier'), :name => 'Payment'%>
   <%end%>  

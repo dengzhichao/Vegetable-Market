@@ -3,7 +3,7 @@ VegetableMarket::Application.routes.draw do
 
   resources :order_items
 
-  get 'orders/payments' => 'orders#payments'
+  get 'orders/payment' => 'orders#payment'
   resources :orders
 
   resources :customers
