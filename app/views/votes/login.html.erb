@@ -1,0 +1,20 @@
+<h1>Input your Vote Number</h1>
+
+<%= form_for @vote, :url => 
+  {:action=>'check',
+   :method=>'post'} do |f| %>
+
+  <div class="field">
+    <%= f.label :number %><br /> 
+    <%= f.number_field :number %>
+  </div>
+
+  <div class="field">
+    <%= f.label :security %><br />
+    <%= f.number_field :security %> 
+  </div>
+
+  <div class="actions">
+    <%= f.submit "Enter" %> 
+  </div>
+<% end %>

@@ -5,6 +5,7 @@
     <tr>
       <th>Number</th>
       <th>Vote</th>
+      <th>Security</th>
       <th></th>
       <th></th>
       <th></th>
@@ -13,9 +14,11 @@
 
   <tbody>
     <% @tickets.each do |ticket| %>
+
       <tr>
         <td><%= ticket.number %></td>
         <td><%= ticket.vote %></td>
+        <td></td>
         <td><%= link_to 'Show', ticket %></td>
         <td><%= link_to 'Edit', edit_ticket_path(ticket) %></td>
         <td><%= link_to 'Destroy', ticket, method: :delete, data: { confirm: 'Are you sure?' } %></td>

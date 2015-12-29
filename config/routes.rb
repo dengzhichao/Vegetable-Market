@@ -1,6 +1,11 @@
 VegetableMarket::Application.routes.draw do
+  
+  post "votes/check" => "votes#check"
+  get "votes/login" 
+  
   get 'votes' => 'votes#index'
   get 'votes/vote'
+  
   resources :tickets
 
   resources :order_statuses

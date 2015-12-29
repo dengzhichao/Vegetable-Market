@@ -28,4 +28,15 @@ module ApplicationHelper
     end
     return false
   end
+  
+  def security_code( code, mask="0110110001011101", rotate=5 )
+    maskbit = mask.to_i(2)
+    d = code ^ maskbit
+    x = "1"*rotate # => "11111"
+    d1 = d >> rotate
+    x2 = "1"*rotate + "0"*(16-rotate)
+    d2 = ((d << (16-rotate)) & x2.to_i(2)) 
+    v = d1 | d2
+    return v
+  end
 end
