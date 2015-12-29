@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151218031943) do
+ActiveRecord::Schema.define(version: 20151229055027) do
 
   create_table "carts", force: true do |t|
     t.integer  "user_id"
@@ -72,6 +72,13 @@ ActiveRecord::Schema.define(version: 20151218031943) do
   create_table "roles", force: true do |t|
     t.string   "ename"
     t.string   "jname"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "tickets", force: true do |t|
+    t.integer  "number"
+    t.integer  "vote"
     t.datetime "created_at"
     t.datetime "updated_at"
   end

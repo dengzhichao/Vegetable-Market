@@ -1,0 +1,20 @@
+<h1>Vegetables Popularity Vote</h1> 
+<table>
+  <% @merchandises.each do |vegetable| %>
+    <tr>
+      <td><%= vegetable.name %></td>
+      <td><%= image_tag url_for({:action => 'photo',
+             :controller => 'merchandises', :id=> vegetable.id,
+             :filename => vegetable.file_name}), :size=>"50x50",
+             :alt => vegetable.file_name %></td>
+      <td>
+        <%= form_tag 'vote' do %>
+          <%= hidden_field_tag :vegetable_id, vegetable.id %> 
+          <%= tag :input, {:type=>'hidden', :name=>'ticket',
+           :value => 'number' } %>
+          <%= submit_tag 'Vote', :name=>'vote' %>
+        <% end %> 
+      </td>
+    </tr>
+  <% end %> 
+</table>
